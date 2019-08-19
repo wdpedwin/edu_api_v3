@@ -11,6 +11,10 @@ user_role = db.Table('user_role',
                      Column('user_id', Integer, ForeignKey('user.id', name='user_role_fk')),
                      Column('role_id', Integer, ForeignKey('role.id', name='user_role_pk')))
 
+qx_role = db.Table('qx_role',
+                     Column('qx_id', Integer, ForeignKey('qx.id', name='qx_role_fk')),
+                     Column('role_id', Integer, ForeignKey('role.id', name='qx_role_pk')))
+
 
 class BaseModel(db.Model):
     __abstract__ = True  # 作用： 不会创建模型的对应的表
@@ -24,6 +28,7 @@ class Role(BaseModel):
 
 class QX(BaseModel):
     __tablename__ = 'qx'
+    roles = db.relationship(Role, secondary=qx_role,backref = 'qxs')
 
 
 class User(db.Model):

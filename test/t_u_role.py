@@ -57,6 +57,17 @@ def query_user_role(user_id=1):
     for role in u.roles:
         print(role.name)
 
+def add_qx_role():
+    r = Role.query.get(1)
+    admin_qx = QX.query.filter(QX.name.__eq__('delname')).one()
+    r.qxs.append(admin_qx)
+    db.session.commit()
+
+def query_qx_role(role_id=1):
+    r = Role.query.get(role_id)
+    for qx in r.qxs:
+        print(qx.name)
+
 
 if __name__ == '__main__':
     app.app_context().push()
