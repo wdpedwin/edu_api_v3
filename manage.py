@@ -9,19 +9,27 @@ from models.user import db
 from utils import cache
 
 
+# @app.before_request
+# def check_login():
+#     if request.path != '/user/login':
+#
+#         # 判断request中是否包含token
+#         # 验证token是否有效
+#         token = request.cookies.get('token')
+#         if not token:
+#             return redirect(url_for('userBlue.login'))
+#         else:
+#             user_id = cache.get_user_id(token)
+#             if not user_id:
+#                 return redirect(url_for('userBlue.login'))
+
+
 @app.before_request
 def check_login():
     if request.path != '/user/login':
 
-        # 判断request中是否包含token
-        # 验证token是否有效
-        token = request.cookies.get('token')
-        if not token:
-            return redirect(url_for('userBlue.login'))
-        else:
-            user_id = cache.get_user_id(token)
-            if not user_id:
-                return redirect(url_for('userBlue.login'))
+
+
 
 
 @app.route('/')

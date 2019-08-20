@@ -40,7 +40,10 @@ def login():
             # 生成token
             token = uuid.uuid4().hex
             resp = redirect('/')
-            resp.set_cookie('token', token, expires=(datetime.now()+timedelta(days=3)))
+            resp.set_cookie(('token', token, expires=(datetime.now()+timedelta(days=3))),
+            ('role',login_user.roles.name,expires = (datetime.now()+timedelta(days=3))),
+            ('qx',login_user.roles.qxs.name,expires = (datetime.now()+timedelta(days=3))),
+            ))
 
             # 将token添加到redis, token-user_id
             cache.save_token(token, login_user.id)
